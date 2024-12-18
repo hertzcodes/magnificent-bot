@@ -2,8 +2,8 @@ package main
 
 import (
 	"flag"
-	"log"
 	"os"
+	"os/signal"
 
 	"github.com/hertzCodes/magnificent-bot/bot"
 	"github.com/hertzCodes/magnificent-bot/config"
@@ -23,6 +23,11 @@ func main() {
 
 	appContainer := app.NewMustApp(c)
 
-	log.Fatal(bot.Run(appContainer, c.Bot))
+	instance := bot.Run(appContainer, c.Bot)
+	// graceful shutdown
+	sigch := make(chan os.Signal, 0)
+	signal.Notify(sigch, os.Interrupt)
+	<-sigch
+	instance.Close()
 
 }
