@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"log"
 	"os"
 
+	"github.com/hertzCodes/magnificent-bot/bot"
 	"github.com/hertzCodes/magnificent-bot/config"
 	"github.com/hertzCodes/magnificent-bot/internal/app"
 )
@@ -20,5 +22,7 @@ func main() {
 	c := config.MustReadConfig(*configPath)
 
 	appContainer := app.NewMustApp(c)
+
+	log.Fatal(bot.Run(appContainer, c.Bot))
 
 }
