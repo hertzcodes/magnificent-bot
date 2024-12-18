@@ -3,14 +3,17 @@ package app
 import (
 	"log"
 
-	"github.com/hertzCodes/magnificent-bot/pkg/postgres"
 	"github.com/hertzCodes/magnificent-bot/config"
+	"github.com/hertzCodes/magnificent-bot/pkg/adapters/commands"
+	"github.com/hertzCodes/magnificent-bot/pkg/adapters/commands/types"
+	"github.com/hertzCodes/magnificent-bot/pkg/postgres"
 	"gorm.io/gorm"
 )
 
 type app struct {
-	db  *gorm.DB
-	cfg config.Config
+	db       *gorm.DB
+	cfg      config.Config
+	commands []*types.Command
 }
 
 func (a *app) DB() *gorm.DB {
@@ -19,6 +22,10 @@ func (a *app) DB() *gorm.DB {
 
 func (a *app) Config() config.Config {
 	return a.cfg
+}
+
+func (a *app) Commands() []*types.Command {
+	return a.commands
 }
 
 func (a *app) setDB() error {
@@ -43,7 +50,8 @@ func (a *app) setDB() error {
 
 func NewApp(cfg config.Config) (App, error) {
 	a := &app{
-		cfg: cfg,
+		cfg:      cfg,
+		commands: commands.RegisterCommands(),
 	}
 
 	if err := a.setDB(); err != nil {
