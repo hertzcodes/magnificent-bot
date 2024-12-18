@@ -17,6 +17,7 @@ func NewPingCommand(active bool, dm bool) *Command {
 			Description:              "shows bot's ping",
 			DefaultMemberPermissions: &p,
 			DMPermission:             &dm,
+			Type:                     discordgo.ChatApplicationCommand,
 		},
 	})
 }

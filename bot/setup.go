@@ -5,6 +5,7 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/hertzCodes/magnificent-bot/config"
+	"github.com/hertzCodes/magnificent-bot/bot/handlers"
 	"github.com/hertzCodes/magnificent-bot/internal/app"
 )
 
@@ -15,12 +16,13 @@ func Run(appContainer app.App, cfg config.BotConfig) error {
 		log.Fatal(err)
 	}
 
+	// registerHandlers(appContainer, bot)
 	err = bot.Open()
 
 	return err
 
 }
 
-func RegisterCommands(bot *discordgo.Session, i *discordgo.InteractionCreate) {
-	
+func registerHandlers(appContainer app.App, bot *discordgo.Session, i *discordgo.InteractionCreate) {
+	bot.AddHandler(handlers.BotReady) // CHECK LATER
 }
