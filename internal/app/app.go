@@ -3,9 +3,9 @@ package app
 import (
 	"log"
 
+	"github.com/bwmarrin/discordgo"
 	"github.com/hertzCodes/magnificent-bot/config"
 	"github.com/hertzCodes/magnificent-bot/pkg/adapters/commands"
-	"github.com/hertzCodes/magnificent-bot/pkg/adapters/commands/types"
 	"github.com/hertzCodes/magnificent-bot/pkg/postgres"
 	"gorm.io/gorm"
 )
@@ -13,7 +13,7 @@ import (
 type app struct {
 	db       *gorm.DB
 	cfg      config.Config
-	commands []*types.Command
+	commands []*discordgo.ApplicationCommand
 }
 
 func (a *app) DB() *gorm.DB {
@@ -24,7 +24,7 @@ func (a *app) Config() config.Config {
 	return a.cfg
 }
 
-func (a *app) Commands() []*types.Command {
+func (a *app) Commands() []*discordgo.ApplicationCommand {
 	return a.commands
 }
 
