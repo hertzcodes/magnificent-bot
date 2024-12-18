@@ -1,0 +1,17 @@
+{
+    "db": {
+        "host": "",
+        "port": 8080,
+        "database": "",
+        "user": "",
+        "password": ""
+    },
+    "bot": {
+        "token": "",
+        "app_id": ""
+    },
+    "redis":{
+        "host": "",
+        "port": 8080
+    }
+}
