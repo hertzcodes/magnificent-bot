@@ -2,10 +2,12 @@ package app
 
 import (
 	"log"
+	"log/slog"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/hertzCodes/magnificent-bot/config"
 	"github.com/hertzCodes/magnificent-bot/pkg/adapters/commands"
+	"github.com/hertzCodes/magnificent-bot/pkg/logger"
 	"github.com/hertzCodes/magnificent-bot/pkg/postgres"
 	"gorm.io/gorm"
 )
@@ -14,6 +16,7 @@ type app struct {
 	db       *gorm.DB
 	cfg      config.Config
 	commands []*discordgo.ApplicationCommand
+	logger   *slog.Logger
 }
 
 func (a *app) DB() *gorm.DB {
@@ -26,6 +29,10 @@ func (a *app) Config() config.Config {
 
 func (a *app) Commands() []*discordgo.ApplicationCommand {
 	return a.commands
+}
+
+func (a *app) Logger() *slog.Logger {
+	return a.logger
 }
 
 func (a *app) setDB() error {
@@ -52,6 +59,7 @@ func NewApp(cfg config.Config) (App, error) {
 	a := &app{
 		cfg:      cfg,
 		commands: commands.RegisterCommands(),
+		logger:   logger.NewLogger(),
 	}
 
 	if err := a.setDB(); err != nil {
