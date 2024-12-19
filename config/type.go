@@ -8,7 +8,7 @@ type Config struct {
 
 type DBConfig struct {
 	Host     string `json:"host"`
-	Port     uint `json:"port"`
+	Port     uint   `json:"port"`
 	Database string `json:"database"`
 	Schema   string `json:"schema"`
 	User     string `json:"user"`
@@ -16,8 +16,10 @@ type DBConfig struct {
 }
 
 type BotConfig struct {
-	Token string `json:"token"`
-	AppID string `json:"app_id"`
+	Token   string `json:"token"`
+	AppID   string `json:"app_id"`
+	GuildID string `json:"guild_id"`
+	OwnerID string `json:"owner_id"`
 }
 
 type RedisConfig struct {

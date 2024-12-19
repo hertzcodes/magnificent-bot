@@ -8,7 +8,9 @@
     },
     "bot": {
         "token": "",
-        "app_id": ""
+        "app_id": "",
+        "guild_id": "",
+        "owner_id": ""
     },
     "redis":{
         "host": "",
