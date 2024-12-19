@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/hertzCodes/magnificent-bot/bot/handlers"
+	"github.com/hertzCodes/magnificent-bot/bot/handlers/basics"
 	"github.com/hertzCodes/magnificent-bot/config"
 	"github.com/hertzCodes/magnificent-bot/internal/app"
 )
@@ -28,6 +28,6 @@ func Run(appContainer app.App, cfg config.BotConfig) *discordgo.Session {
 }
 
 func registerHandlers(appContainer app.App, bot *discordgo.Session) {
-	bot.AddHandler(handlers.Ping)
-	bot.AddHandler(handlers.BotReady)
+	bot.AddHandler(basics.Ping)
+	bot.AddHandler(basics.BotReady)
 }
