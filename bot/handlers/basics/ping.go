@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/hertzCodes/magnificent-bot/pkg/discord"
 )
 
 func Ping(logger *slog.Logger) interface{} {
@@ -18,22 +19,13 @@ func Ping(logger *slog.Logger) interface{} {
 			return
 		}
 
-		err := Pong(bot, i)
+		msg := fmt.Sprintf("🏓 Pong **%s!** ", bot.HeartbeatLatency().Round(time.Millisecond))
+
+		err := discord.SendChannelMessage(msg, bot, i)
 
 		if err != nil {
 			logger.Error(err.Error(), "command", "ping", "user", data.TargetID)
 		}
 
 	}
-}
-func Pong(bot *discordgo.Session, i *discordgo.InteractionCreate) error {
-
-	err := bot.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-		Type: discordgo.InteractionResponseChannelMessageWithSource,
-		Data: &discordgo.InteractionResponseData{
-			Content: fmt.Sprintf("🏓 Pong **%s!** ", bot.HeartbeatLatency().Round(time.Millisecond)),
-		},
-	})
-
-	return err
 }
