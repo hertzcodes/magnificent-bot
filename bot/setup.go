@@ -17,9 +17,9 @@ func Run(appContainer app.App, cfg config.BotConfig) *discordgo.Session {
 	}
 
 	registerHandlers(appContainer, bot)
-	_, err = bot.ApplicationCommandBulkOverwrite(cfg.AppID, "1205824707874656257", appContainer.Commands())
+	_, err = bot.ApplicationCommandBulkOverwrite(cfg.AppID, "", appContainer.Commands())
 	if err != nil {
-		log.Fatal("failed ", err)
+		log.Fatal("[COMMANDS OVERWRITE]", err)
 	}
 
 	err = bot.Open()
