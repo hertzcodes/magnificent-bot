@@ -14,7 +14,7 @@ func NewPingCommand(active bool, dm bool) *Command {
 		Active: active,
 		Config: discordgo.ApplicationCommand{
 			Name:                     "ping",
-			Description:              "shows bot's ping",
+			Description:              "shows bot's latency",
 			DefaultMemberPermissions: &p,
 			DMPermission:             &dm,
 			Type:                     discordgo.ChatApplicationCommand,

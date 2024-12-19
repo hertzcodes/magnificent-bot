@@ -17,6 +17,7 @@ func RegisterCommands() []*discordgo.ApplicationCommand {
 	c := make([]*discordgo.ApplicationCommand, 0)
 
 	AddCommand(&c, true, true, types.NewPingCommand)
+	AddCommand(&c, true, true, types.NewHelpCommand)
 	// Add more commands here
 
 	return c
