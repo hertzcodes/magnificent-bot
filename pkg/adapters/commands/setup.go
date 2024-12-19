@@ -7,9 +7,9 @@ import (
 
 // AddCommand adds a command if active = true
 // dm param enables dm permission for bot
-func AddCommand(commands *[]*discordgo.ApplicationCommand, active bool, dm bool, f func(bool, bool) *types.Command) {
+func AddCommand(commands *[]*discordgo.ApplicationCommand, active bool, dm bool, f func(bool) *types.Command) {
 	if active {
-		*commands = append(*commands, &f(true, true).Config)
+		*commands = append(*commands, &f(dm).Config)
 	}
 }
 

@@ -49,8 +49,8 @@ func SendChannelMessageEmbedDeferred(text string, embeds []*discordgo.MessageEmb
 	err := bot.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseDeferredChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
-			Content:         text,
-			Embeds:          embeds,
+			Content: text,
+			Embeds:  embeds,
 		},
 	})
 
