@@ -17,9 +17,17 @@ func Run(appContainer app.App, cfg config.BotConfig) *discordgo.Session {
 	}
 
 	registerHandlers(appContainer, bot)
-	_, err = bot.ApplicationCommandBulkOverwrite(cfg.AppID, "", appContainer.Commands())
+	_, err = bot.ApplicationCommandBulkOverwrite(cfg.AppID, "", appContainer.Commands().Global)
 	if err != nil {
-		log.Fatal("[COMMANDS OVERWRITE]", err)
+		log.Fatal("[GLOBAL COMMANDS OVERWRITE]", err)
+	}
+
+	for _, cmd := range appContainer.Commands().Admin {
+		_, err = bot.ApplicationCommandCreate(cfg.AppID, cfg.GuildID, cmd)
+
+		if err != nil {
+			appContainer.Logger().Error(err.Error(), "command", cmd.Name)
+		}
 	}
 
 	err = bot.Open()

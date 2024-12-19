@@ -13,7 +13,11 @@ func AddCommand(commands *[]*discordgo.ApplicationCommand, active bool, dm bool,
 	}
 }
 
-func RegisterCommands() []*discordgo.ApplicationCommand {
+func RegisterCommandsAdmin() []*discordgo.ApplicationCommand {
+	return nil
+}
+
+func RegisterCommandsGlobal() []*discordgo.ApplicationCommand {
 	c := make([]*discordgo.ApplicationCommand, 0)
 
 	AddCommand(&c, true, true, types.NewPingCommand)

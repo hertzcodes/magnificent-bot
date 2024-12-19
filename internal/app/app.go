@@ -15,8 +15,13 @@ import (
 type app struct {
 	db       *gorm.DB
 	cfg      config.Config
-	commands []*discordgo.ApplicationCommand
 	logger   *slog.Logger
+	commands Commands
+}
+
+type Commands struct {
+	Global []*discordgo.ApplicationCommand
+	Admin  []*discordgo.ApplicationCommand
 }
 
 func (a *app) DB() *gorm.DB {
@@ -27,7 +32,7 @@ func (a *app) Config() config.Config {
 	return a.cfg
 }
 
-func (a *app) Commands() []*discordgo.ApplicationCommand {
+func (a *app) Commands() Commands {
 	return a.commands
 }
 
@@ -55,17 +60,25 @@ func (a *app) setDB() error {
 	return nil
 }
 
+func (a *app) setCommands() {
+
+	a.commands = Commands{
+		Global: commands.RegisterCommandsGlobal(),
+		Admin:  commands.RegisterCommandsAdmin(),
+	}
+}
+
 func NewApp(cfg config.Config) (App, error) {
 	a := &app{
-		cfg:      cfg,
-		commands: commands.RegisterCommands(),
-		logger:   logger.NewLogger(),
+		cfg:    cfg,
+		logger: logger.NewLogger(),
 	}
 
 	if err := a.setDB(); err != nil {
 		return nil, err
 	}
 
+	a.setCommands()
 	// ... other initialization code ...
 
 	return a, nil
