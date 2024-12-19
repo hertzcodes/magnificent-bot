@@ -1,11 +1,14 @@
 package basics
 
 import (
-	"log"
+	"log/slog"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-func BotReady(bot *discordgo.Session, r *discordgo.Ready) {
-	log.Printf("Logged in as %s", r.User.String())
+func BotReady(logger *slog.Logger) interface{} {
+
+	return func(bot *discordgo.Session, r *discordgo.Ready) {
+		logger.Info("Logged in as %s", r.User.String())
+	}
 }

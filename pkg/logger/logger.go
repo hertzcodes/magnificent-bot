@@ -8,5 +8,6 @@ import (
 )
 
 func NewLogger() *slog.Logger {
-	return slog.New(slog.NewJSONHandler(os.Stdout, nil)).With("trace_id", uuid.NewString())
+	return slog.New(slog.NewJSONHandler(os.Stderr, nil)).With("trace_id", uuid.NewString())
 }
+

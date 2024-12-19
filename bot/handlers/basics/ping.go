@@ -2,35 +2,38 @@ package basics
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-func Ping(bot *discordgo.Session, i *discordgo.InteractionCreate) {
+func Ping(logger *slog.Logger) interface{} {
 
-	data := i.ApplicationCommandData()
+	return func(bot *discordgo.Session, i *discordgo.InteractionCreate) {
 
-	if data.Name != "ping" {
-		return
+		data := i.ApplicationCommandData()
+
+		if data.Name != "ping" {
+			return
+		}
+
+		err := Pong(bot, i)
+
+		if err != nil {
+			logger.Error(err.Error(), "command", "ping", "user", data.TargetID)
+		}
+
 	}
-
-	Pong(bot, i)
-
 }
-
-func Pong(bot *discordgo.Session, i *discordgo.InteractionCreate) {
+func Pong(bot *discordgo.Session, i *discordgo.InteractionCreate) error {
 
 	err := bot.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
-			Content: fmt.Sprintf("🏓 Pong **%s** ", bot.HeartbeatLatency().Round(time.Millisecond)),
+			Content: fmt.Sprintf("🏓 Pong **%s!** ", bot.HeartbeatLatency().Round(time.Millisecond)),
 		},
 	})
 
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	return err
 }

@@ -28,6 +28,6 @@ func Run(appContainer app.App, cfg config.BotConfig) *discordgo.Session {
 }
 
 func registerHandlers(appContainer app.App, bot *discordgo.Session) {
-	bot.AddHandler(basics.Ping)
-	bot.AddHandler(basics.BotReady)
+	bot.AddHandler(basics.Ping(appContainer.Logger()))
+	bot.AddHandler(basics.BotReady(appContainer.Logger()))
 }
