@@ -7,6 +7,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/hertzCodes/magnificent-bot/config"
 	"github.com/hertzCodes/magnificent-bot/pkg/adapters/commands"
+	"github.com/hertzCodes/magnificent-bot/pkg/adapters/storage/entities"
 	"github.com/hertzCodes/magnificent-bot/pkg/logger"
 	"github.com/hertzCodes/magnificent-bot/pkg/postgres"
 	"gorm.io/gorm"
@@ -51,6 +52,14 @@ func (a *app) setDB() error {
 			DBName:   a.cfg.DB.Database,
 			Schema:   a.cfg.DB.Schema,
 		})
+
+	if err != nil {
+		return err
+	}
+
+	err = db.AutoMigrate(
+		&entities.User{},
+	)
 
 	if err != nil {
 		return err
