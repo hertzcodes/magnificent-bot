@@ -4,19 +4,17 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-func NewPingCommand(dm bool) *Command {
+func NewPingCommand(dm bool) *discordgo.ApplicationCommand {
 
 	var (
 		p int64 = discordgo.PermissionReadMessageHistory + discordgo.PermissionSendMessages
 	)
 
-	return (&Command{
-		Config: discordgo.ApplicationCommand{
-			Name:                     "ping",
-			Description:              "shows bot's latency",
-			DefaultMemberPermissions: &p,
-			DMPermission:             &dm,
-			Type:                     discordgo.ChatApplicationCommand,
-		},
-	})
+	return &discordgo.ApplicationCommand{
+		Name:                     "ping",
+		Description:              "shows bot's latency",
+		DefaultMemberPermissions: &p,
+		DMPermission:             &dm,
+		Type:                     discordgo.ChatApplicationCommand,
+	}
 }

@@ -13,8 +13,13 @@ var HelpEmbed *discordgo.MessageEmbed = &discordgo.MessageEmbed{
 		},
 
 		&discordgo.MessageEmbedField{
-			Name:  "/value `[Game]` `[Item-Name]` `[Options]`",
+			Name:  "/value `[game]` `[item-name]` `[options]`",
 			Value: "See an item's value",
+		},
+
+		&discordgo.MessageEmbedField{
+			Name:  "/verify `[username]`",
+			Value: "Verify your roblox username",
 		},
 	},
 }

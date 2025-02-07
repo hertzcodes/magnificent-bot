@@ -1,20 +1,20 @@
 package types
 
-import "github.com/bwmarrin/discordgo"
+import (
+	"github.com/bwmarrin/discordgo"
+)
 
-func NewHelpCommand(dm bool) *Command {
+func NewHelpCommand(dm bool) *discordgo.ApplicationCommand {
 
 	var (
 		p int64 = discordgo.PermissionSendMessages
 	)
 
-	return &Command{
-		Config: discordgo.ApplicationCommand{
-			Name:                     "help",
-			DMPermission:             &dm,
-			DefaultMemberPermissions: &p,
-			Type:                     discordgo.ChatApplicationCommand,
-			Description:              "shows bot's guide for commands",
-		},
+	return &discordgo.ApplicationCommand{
+		Name:                     "help",
+		DMPermission:             &dm,
+		DefaultMemberPermissions: &p,
+		Type:                     discordgo.ChatApplicationCommand,
+		Description:              "shows bot's guide for commands",
 	}
 }
