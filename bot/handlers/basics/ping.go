@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/hertzCodes/magnificent-bot/bot/handlers"
 	"github.com/hertzCodes/magnificent-bot/pkg/discord"
 )
 
@@ -24,7 +25,7 @@ func Ping(logger *slog.Logger) interface{} {
 		err := discord.SendChannelMessage(msg, bot, i)
 
 		if err != nil {
-			logger.Error(err.Error(), "command", "ping", "user", data.TargetID)
+			logger.Error(err.Error(), "command", "ping", "user", handlers.GetUserDiscordID(i.Interaction))
 		}
 
 	}

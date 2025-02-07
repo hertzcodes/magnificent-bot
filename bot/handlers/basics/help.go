@@ -4,6 +4,8 @@ import (
 	"log/slog"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/hertzCodes/magnificent-bot/bot/handlers"
+	"github.com/hertzCodes/magnificent-bot/pkg/adapters/embeds"
 	"github.com/hertzCodes/magnificent-bot/pkg/discord"
 )
 
@@ -17,15 +19,13 @@ func Help(logger *slog.Logger) interface{} {
 		}
 
 		embeds := []*discordgo.MessageEmbed{
-			&discordgo.MessageEmbed{
-				Title: "Help",
-				Color: 0,
-			}}
+			embeds.NewHelpEmbed(),
+		}
 
 		err := discord.SendChannelMessageEmbed("", embeds, bot, i)
 
 		if err != nil {
-			logger.Error(err.Error(), "command", "help", "user", data.TargetID)
+			logger.Error(err.Error(), "command", "help", "user", handlers.GetUserDiscordID(i.Interaction))
 		}
 
 	}
